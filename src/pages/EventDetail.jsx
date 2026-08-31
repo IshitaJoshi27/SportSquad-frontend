@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios';
 import { UserData } from '../context/UserContext';
 import { Loading } from '../components/Loading';
 import { FiCalendar, FiMapPin, FiUsers, FiTag, FiZap, FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
@@ -16,7 +16,7 @@ const EventDetail = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const { data } = await axios.get(`/api/events/${id}`, { withCredentials: true });
+        const { data } = await api.get(`/events/${id}`);
         setEvent(data);
       } catch (error) {
         console.error('Error fetching event details:', error);
@@ -53,7 +53,7 @@ const EventDetail = () => {
 
   const handleUnregister = async () => {
     try {
-      await axios.post(`/api/events/unregister/${event._id}`, {}, { withCredentials: true });
+      await api.post(`/events/unregister/${event._id}`);
       const updatedJoinedEvents = user.joinedEvents.filter(
         (eid) => eid.toString() !== event._id
       );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import EventCard from '../components/EventCard';
 import { FiSearch, FiFilter } from 'react-icons/fi';
 import { Loading } from '../components/Loading';
@@ -12,7 +12,7 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const { data } = await axios.get('/api/events/allEvents', { withCredentials: true });
+        const { data } = await api.get('/events/allEvents');
         setEvents(data);
         setLoading(false);
       } catch (error) {

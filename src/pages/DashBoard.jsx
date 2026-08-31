@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import EventCard from '../components/EventCard';
 import { UserData } from '../context/UserContext';
 import { FiTrendingUp, FiCalendar } from 'react-icons/fi';
@@ -11,7 +11,7 @@ const DashBoard = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const { data } = await axios.get('/api/events/allEvents');
+        const { data } = await api.get('/events/allEvents');
         setEvents(data.slice(0, 3)); // Get top 3
       } catch (error) {
         console.error('Error fetching events:', error);

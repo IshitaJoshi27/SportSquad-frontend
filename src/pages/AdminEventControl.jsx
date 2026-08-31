@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const AdminEventControl = () => {
@@ -11,7 +11,7 @@ const AdminEventControl = () => {
   useEffect(() => {
     const fetchEventDetail = async () => {
       try {
-        const { data } = await axios.get(`/api/events/${id}`, { withCredentials: true });
+        const { data } = await api.get(`/events/${id}`);
         setEvent(data);
       } catch (error) {
         console.error('Error fetching event details:', error);
@@ -29,7 +29,7 @@ const AdminEventControl = () => {
     }
     try {
       // Call backend to remove the team from the event and delete the team
-      await axios.delete(`/api/events/${id}/teams/${teamId}`, { withCredentials: true });
+      await api.delete(`/events/${id}/teams/${teamId}`);
       // Update local state after removal
       setEvent({
         ...event,
@@ -45,7 +45,7 @@ const AdminEventControl = () => {
       return;
     }
     try {
-      await axios.delete(`/api/events/${id}`, { withCredentials: true });
+      await api.delete(`/events/${id}`);
       alert("Event deleted successfully.");
       navigate('/hosted');
     } catch (error) {

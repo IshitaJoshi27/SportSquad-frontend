@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-import axios from 'axios';
-
-axios.defaults.withCredentials = true;
+import api from '../api/axios';
 
 const UserContext = createContext();
 
@@ -14,7 +12,7 @@ export const UserProvider = ({ children }) => {
   async function registerUser(name, email, password, navigate) {
     setBtnLoading(true);
     try {
-      const { data } = await axios.post("/api/users/register", { name, email, password });
+      const { data } = await api.post("/users/register", { name, email, password });
       toast.success(data.msg);
       setUser(data.user);
       setIsAuth(true);
@@ -29,7 +27,7 @@ export const UserProvider = ({ children }) => {
   async function loginUser(email, password, navigate) {
     setBtnLoading(true);
     try {
-      const { data } = await axios.post("/api/users/login", { email, password });
+      const { data } = await api.post("/users/login", { email, password });
       toast.success(data.msg);
       setUser(data.user);
       setIsAuth(true);
@@ -43,7 +41,7 @@ export const UserProvider = ({ children }) => {
 
   async function logout() {
     try {
-      await axios.get("/api/users/logout");
+      await api.get("/users/logout");
       setUser([]);
       setIsAuth(false);
       toast.success("Logged out successfully");
@@ -55,7 +53,7 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   async function fetchUser() {
     try {
-      const { data } = await axios.get("/api/users/me");
+      const { data } = await api.get("/users/me");
       setUser(data);
       setIsAuth(true);
       setLoading(false);

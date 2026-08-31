@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import { LoadingAnimation } from '../components/Loading';
 import { FiPlus, FiImage, FiCalendar, FiMapPin, FiLayers, FiZap, FiUsers } from 'react-icons/fi';
@@ -36,9 +36,8 @@ const CreateEvent = () => {
     formData.append('file', image);
 
     try {
-      await axios.post('/api/events/new', formData, {
+      await api.post('/events/new', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-        withCredentials: true,
       });
       toast.success('Event created successfully!');
       navigate('/hosted');

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import EventCard from '../components/EventCard';
 import { Loading } from '../components/Loading';
 import { FiCheckSquare, FiCalendar } from 'react-icons/fi';
@@ -12,7 +12,7 @@ const JoinedEvents = () => {
   useEffect(() => {
     const fetchJoinedEvents = async () => {
       try {
-        const { data } = await axios.get('/api/events/joined', { withCredentials: true });
+        const { data } = await api.get('/events/joined');
         setEvents(data);
         setLoading(false);
       } catch (error) {

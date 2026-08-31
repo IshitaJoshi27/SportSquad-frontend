@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserData } from '../context/UserContext';
 import { LoadingAnimation } from '../components/Loading';
@@ -33,7 +33,7 @@ const RegisterTeam = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`/api/events/register/${id}`, { name, members });
+      await api.post(`/events/register/${id}`, { name, members });
       setUser({ ...user, joinedEvents: [...user.joinedEvents, id] });
       toast.success('Team registered successfully!');
       navigate('/joined');

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios';
 import { UserData } from '../context/UserContext';
 import { Calendar, MapPin, Users, TrendingUp, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -19,7 +19,7 @@ const EventCard = ({ event }) => {
 
   const handleUnregister = async () => {
     try {
-      await axios.post(`/api/events/unregister/${event._id}`, {}, { withCredentials: true });
+      await api.post(`/events/unregister/${event._id}`);
       const updatedJoinedEvents = user.joinedEvents.filter(
         (eid) => eid.toString() !== event._id
       );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { useNavigate, Link } from 'react-router-dom';
 import EventCard from '../components/EventCard';
 import { FiUsers, FiPlus, FiSettings } from 'react-icons/fi';
@@ -13,7 +13,7 @@ const HostedEvents = () => {
   useEffect(() => {
     const fetchHostedEvents = async () => {
       try {
-        const { data } = await axios.get('/api/events/hosted', { withCredentials: true });
+        const { data } = await api.get('/events/hosted');
         setEvents(data);
         setLoading(false);
       } catch (error) {
